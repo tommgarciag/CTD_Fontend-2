@@ -153,8 +153,8 @@ condición.
 // WHILE
 // su comportamiento es similar a un bucle 'for', pero elbloque seguirá ejecutando indefinidamente mientras la condición sea verdadera.
 
-let n = 1;
-while (n < 3) {
+let n2 = 1;
+while (n2 < 3) {
 // código a ejecutar
 }
 
