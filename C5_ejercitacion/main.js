@@ -43,6 +43,8 @@ const listadoFelinos = [
   },
 ];
 
+
+
 let contenedor = document.querySelector(".contenedor");
 
 for (let felino of listadoFelinos) {
@@ -55,3 +57,5 @@ for (let felino of listadoFelinos) {
 
   contenedor.innerHTML += template;
 }
+
+
