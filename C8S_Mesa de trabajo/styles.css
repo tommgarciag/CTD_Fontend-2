@@ -9,10 +9,23 @@ body {
 }
 
 header,
-footer {
+footer,
+nav {
     width: 90%;
     padding: 20px 0px;
     margin: auto;
+}
+
+button {
+    padding: 5px 10px;
+    background-color: #7aabaf;
+    color: #FDFEFE;
+    border: none;
+    border-radius: 10px;
+}
+
+button.active {
+    background-color: #334c4e; 
 }
 
 .news {

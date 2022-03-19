@@ -51,27 +51,94 @@ const noticias = [
 
 const main = document.querySelector('#news');
 
+const btnTodos = document.querySelector("#btn-todos");
+const btnNacionales = document.querySelector("#btn-nacionales");
+const btnInternacionales = document.querySelector("#btn-internacionales");
 
-for (let noticia of noticias) {
-  let template = `
-    <div class="card">      
-      <div class="card-content">
-        <h2>${noticia.titulo}</h2>
-        <p>${noticia.descripcion}</p>
-        <span>${noticia.fecha} | <strong>${noticia.tipoNacional ? "Nacionales" : "Internacionales"}</strong></span>
-      </div>  
-      <img class="card-img"
-          src="${noticia.imgUrl}"
-          alt="imagen-noticia"
-      />
-    </div>
-  `;
-  main.innerHTML += template;
+
+window.addEventListener("load", renderizarNoticias);
+btnTodos.addEventListener("click", renderizarNoticias);
+btnNacionales.addEventListener("click", renderizarNoticiasNacionales);
+btnInternacionales.addEventListener("click", renderizarNoticiasInternacionales);
+
+
+function renderizarNoticias() {
+  main.innerHTML = "";
+
+  for (let noticia of noticias) {
+    let template = `
+      <div class="card">      
+        <div class="card-content">
+          <h2>${noticia.titulo}</h2>
+          <p>${noticia.descripcion}</p>
+          <span>${noticia.fecha} | <strong>${noticia.tipoNacional ? "Nacionales" : "Internacionales"}</strong></span>
+        </div>  
+        <img class="card-img"
+            src="${noticia.imgUrl}"
+            alt="imagen-noticia"
+        />
+      </div>
+    `;
+    main.innerHTML += template;
+  }
+
+  btnNacionales.classList.remove('active');
+  btnInternacionales.classList.remove('active');
+  btnTodos.classList.add('active');
 }
 
-/* TO DO En cuanto a lo visual, en el sitio se debe poder distinguir las noticias que son
-internacionales de las nacionales. Para ello, deberán crear alguna clase aplicable solamente
-a las noticias internacionales (validar utilizando la propiedad del objeto que aclara esto)
-para que los usuarios puedan identificar que las mismas no son exclusivas de Argentina. */
+function renderizarNoticiasNacionales() {
 
-// probar hacer con filter y botones para filtar
+  let nacionales = noticias.filter(categoria => categoria.tipoNacional == true);
+  main.innerHTML = "";
+
+  for (let noticia of nacionales) {
+    let template = `
+      <div class="card">      
+        <div class="card-content">
+          <h2>${noticia.titulo}</h2>
+          <p>${noticia.descripcion}</p>
+          <span>${noticia.fecha} | <strong>${noticia.tipoNacional ? "Nacionales" : "Internacionales"}</strong></span>
+        </div>  
+        <img class="card-img"
+            src="${noticia.imgUrl}"
+            alt="imagen-noticia"
+        />
+      </div>
+    `;
+    main.innerHTML += template;
+  }
+  
+  btnTodos.classList.remove('active');
+  btnInternacionales.classList.remove('active');
+  btnNacionales.classList.add('active');
+}
+
+function renderizarNoticiasInternacionales() {
+
+  let internacionales = noticias.filter(categoria => categoria.tipoNacional == false);
+  main.innerHTML = "";
+
+  for (let noticia of internacionales) {
+    let template = `
+      <div class="card">      
+        <div class="card-content">
+          <h2>${noticia.titulo}</h2>
+          <p>${noticia.descripcion}</p>
+          <span>${noticia.fecha} | <strong>${noticia.tipoNacional ? "Nacionales" : "Internacionales"}</strong></span>
+        </div>  
+        <img class="card-img"
+            src="${noticia.imgUrl}"
+            alt="imagen-noticia"
+        />
+      </div>
+    `;
+    main.innerHTML += template;
+  }
+
+
+  btnTodos.classList.remove('active');
+  btnNacionales.classList.remove('active');
+  btnInternacionales.classList.add('active');
+}
+
