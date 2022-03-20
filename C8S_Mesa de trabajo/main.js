@@ -50,49 +50,46 @@ const noticias = [
 ];
 
 const main = document.querySelector('#news');
+const btn = document.querySelectorAll('.btn');
 
 const btnTodos = document.querySelector("#btn-todos");
 const btnNacionales = document.querySelector("#btn-nacionales");
 const btnInternacionales = document.querySelector("#btn-internacionales");
 
-
-window.addEventListener("load", renderizarNoticias);
-btnTodos.addEventListener("click", renderizarNoticias);
-btnNacionales.addEventListener("click", renderizarNoticiasNacionales);
-btnInternacionales.addEventListener("click", renderizarNoticiasInternacionales);
+let nacionales = noticias.filter(categoria => categoria.tipoNacional == true);
+let internacionales = noticias.filter(categoria => categoria.tipoNacional == false);
 
 
-function renderizarNoticias() {
-  main.innerHTML = "";
-
-  for (let noticia of noticias) {
-    let template = `
-      <div class="card">      
-        <div class="card-content">
-          <h2>${noticia.titulo}</h2>
-          <p>${noticia.descripcion}</p>
-          <span>${noticia.fecha} | <strong>${noticia.tipoNacional ? "Nacionales" : "Internacionales"}</strong></span>
-        </div>  
-        <img class="card-img"
-            src="${noticia.imgUrl}"
-            alt="imagen-noticia"
-        />
-      </div>
-    `;
-    main.innerHTML += template;
-  }
-
-  btnNacionales.classList.remove('active');
-  btnInternacionales.classList.remove('active');
+window.addEventListener("load", function () {
+  renderizarNoticias(noticias);
   btnTodos.classList.add('active');
-}
+});
 
-function renderizarNoticiasNacionales() {
 
-  let nacionales = noticias.filter(categoria => categoria.tipoNacional == true);
+btnTodos.addEventListener("click", function () {
+  renderizarNoticias(noticias);
+  eliminarClaseActive();
+  this.classList.add('active');
+});
+
+
+btnNacionales.addEventListener("click", function () {
+  renderizarNoticias(nacionales);
+  eliminarClaseActive();
+  this.classList.add('active');
+});
+
+btnInternacionales.addEventListener("click", function () {
+  renderizarNoticias(internacionales);
+  eliminarClaseActive();
+  this.classList.add('active');
+});
+
+
+function renderizarNoticias(arrayNoticias) {
   main.innerHTML = "";
 
-  for (let noticia of nacionales) {
+  for (let noticia of arrayNoticias) {
     let template = `
       <div class="card">      
         <div class="card-content">
@@ -108,37 +105,13 @@ function renderizarNoticiasNacionales() {
     `;
     main.innerHTML += template;
   }
-  
-  btnTodos.classList.remove('active');
-  btnInternacionales.classList.remove('active');
-  btnNacionales.classList.add('active');
 }
 
-function renderizarNoticiasInternacionales() {
-
-  let internacionales = noticias.filter(categoria => categoria.tipoNacional == false);
-  main.innerHTML = "";
-
-  for (let noticia of internacionales) {
-    let template = `
-      <div class="card">      
-        <div class="card-content">
-          <h2>${noticia.titulo}</h2>
-          <p>${noticia.descripcion}</p>
-          <span>${noticia.fecha} | <strong>${noticia.tipoNacional ? "Nacionales" : "Internacionales"}</strong></span>
-        </div>  
-        <img class="card-img"
-            src="${noticia.imgUrl}"
-            alt="imagen-noticia"
-        />
-      </div>
-    `;
-    main.innerHTML += template;
-  }
-
-
-  btnTodos.classList.remove('active');
-  btnNacionales.classList.remove('active');
-  btnInternacionales.classList.add('active');
+function eliminarClaseActive() {
+  btn.forEach(btn => {
+    if (btn.classList.contains('active')) {
+      btn.classList.remove('active');
+    }   
+  });
 }
 
